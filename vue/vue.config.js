@@ -79,7 +79,7 @@ module.exports = {
     pages: pages,
     filenameHashing: false,
     productionSourceMap: false,
-    publicPath: process.env.NODE_ENV === "production" ? "" : "http://0.0.0.0:8080/",
+    publicPath: process.env.NODE_ENV === "production" ? "" : "http://192.168.1.7:8080/",
     outputDir: "../cookbook/static/vue/",
     runtimeCompiler: true,
     pwa: {
@@ -161,8 +161,7 @@ module.exports = {
             //  .public("http://localhost:8080")
             .https(false)
             .headers({"Access-Control-Allow-Origin": ["*"]})
-    },
-    proxy: {
+            .proxy({
       // '/parkingServer': {
       // //普通的http代理
       //   target: 'http://你的服务器地址/parkingServer', // 内网(目前在用)如10.2.40.119:10014
@@ -186,4 +185,8 @@ module.exports = {
         // }
       }
     }
+            )
+
+    },
+
 }
