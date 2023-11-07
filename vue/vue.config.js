@@ -79,7 +79,7 @@ module.exports = {
     pages: pages,
     filenameHashing: false,
     productionSourceMap: false,
-    publicPath: process.env.NODE_ENV === "production" ? "" : "http://localhost:8080/",
+    publicPath: process.env.NODE_ENV === "production" ? "" : "http://0.0.0.0:8080/",
     outputDir: "../cookbook/static/vue/",
     runtimeCompiler: true,
     pwa: {
@@ -137,7 +137,7 @@ module.exports = {
 
         config.optimization.minimize(true)
 
-        //TODO somehow remov them as they are also added to the manifest config of the service worker
+        //TODO somehow remove them as they are also added to the manifest config of the service worker
         /*
         Object.keys(pages).forEach(page => {
             config.plugins.delete(`html-${page}`);
@@ -151,7 +151,7 @@ module.exports = {
         config.resolve.alias.set("__STATIC__", "static")
 
         config.devServer
-            .host("localhost")
+            .host("0.0.0.0")
             .port(8080)
             .set('hot', 'only')
             .set('static', {watch: true})
@@ -162,4 +162,28 @@ module.exports = {
             .https(false)
             .headers({"Access-Control-Allow-Origin": ["*"]})
     },
+    proxy: {
+      // '/parkingServer': {
+      // //普通的http代理
+      //   target: 'http://你的服务器地址/parkingServer', // 内网(目前在用)如10.2.40.119:10014
+      //   /*target: 'http://你的服务器地址/parkingServer', // 外网(目前在用)*/
+      //   /*target: 'http://你的服务器地址/parkingServer',//蒋涛本地  网线*/
+      //
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/parkingServer': '/'
+      //   }
+      // },
+      '/socket': {
+      //webSocket代理
+        target: 'ws://192.168.1.7', // 内网
+        /*target: 'ws://你的服务器地址/parkingServer', // 外网*/
+        /*target: 'ws://你的服务器地址/parkingServer',//本地测试*/
+        ws:true,//开启ws, 如果是http代理此处可以不用设置
+        changeOrigin: true,
+        // pathRewrite: {
+        //   '^/socket': '/'
+        // }
+      }
+    }
 }

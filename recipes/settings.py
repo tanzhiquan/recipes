@@ -434,7 +434,7 @@ for p in PLUGINS:
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = os.getenv('TIMEZONE') if os.getenv('TIMEZONE') else 'Europe/Berlin'
 
@@ -445,6 +445,7 @@ USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = [
+    ('zh-hans', _('中文 ')),
     ('hy', _('Armenian ')),
     ('bg', _('Bulgarian')),
     ('ca', _('Catalan')),
